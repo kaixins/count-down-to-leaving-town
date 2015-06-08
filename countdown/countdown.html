@@ -1,0 +1,30 @@
+<head>
+  <title>countdown</title>
+</head>
+
+<body>
+
+  {{> hello}}
+  {{> countdown}}
+    
+</body>
+
+<template name="hello">
+  Hello!
+</template>
+
+<template name="countdown">
+ <div id="day-number">
+   {{getDays}} days, {{getHours}} hours, {{getMinutes}} minutes and {{getSeconds}} seconds
+   <span class="day-message">to go!</span>
+ </div>
+
+    
+</template>
+
+<template name="surprise">
+    
+<button>Click Me</button>
+  <p>You've pressed the button {{counter}} times.</p>
+  <p>    Go you!</p>
+</template>
