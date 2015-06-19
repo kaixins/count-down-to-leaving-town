@@ -5,4 +5,7 @@
 # but you can also edit it by hand.
 
 meteor-platform
-autopublish
+bootstrap
+momentjs:moment
+fourseven:scss
+jeremy:snapsvg
