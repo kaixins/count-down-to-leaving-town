@@ -6,6 +6,5 @@
 
 meteor-platform
 bootstrap
-momentjs:moment
 fourseven:scss
 jeremy:snapsvg
