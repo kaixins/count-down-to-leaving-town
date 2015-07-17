@@ -15,7 +15,8 @@ if(Meteor.isClient) {
     var getTimeLeft = function() {
         var end = new Date('08/01/2015 12:00');
         var now = new Date();
-        return end - now;
+        return end - now;meteor
+        
     };
     var updateTimeLeft = function() {
         var days = Math.floor(getTimeLeft() / _day);
@@ -44,14 +45,18 @@ if(Meteor.isClient) {
     
     //Set up clouds
     Template.sky.onRendered(function() {
+        
         var s = new Snap("#sky");
         
-        
-        Snap.load("/images/cloud.svg", function(data) {
-            s.append(data);
+        Snap.load("/images/cloud.svg", function(fragment) {
             
-            var cloud = s.select(".cloud");
+            var element = fragment.select(".cloud");
+          //  element.attr("class", "cloud");
+            s.append(element);
+            element.drag();
            
+           
+
             var containerHeight = s.node.offsetHeight,
                 numberOfClouds = 16;
             cloudWidth = $(window).width();
@@ -63,7 +68,7 @@ if(Meteor.isClient) {
                 //randomise our new cloud variables
                 var x = Math.floor(Math.random() * cloudWidth),
                 y = Math.floor(Math.random() * containerHeight),
-                newCloud = cloud.use(),
+                newCloud = element.use(),
                 randomScale = Math.random() * (3 - 0.5) + 0.5;
                 
                 newCloud.attr({
@@ -71,15 +76,23 @@ if(Meteor.isClient) {
                   y: y,
                   transform: 's' + randomScale
                 });
-                
                 newCloud.attr("class", "cloud");
-              
+                
+                float(newCloud, randomScale, x);
+                
+                
                 clouds.add(newCloud);
             }
-            
-         
-                       
+                   
+            s.append(clouds);
         });
+        
+        function float(newCloud, randomScale, x){
+          newCloud.animate({x:-x}, 20000*randomScale, function(){
+                    newCloud.attr({x: $(document).width()}); 
+                    float(newCloud, randomScale, x);
+            });
+        };
       
     });
    
