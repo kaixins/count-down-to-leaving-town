@@ -9,8 +9,6 @@ if(Meteor.isClient) {
         setInterval(function() {
             updateTimeLeft();
         }, 1000);
-        $('body').prepend('<div id="svg"></div>');
-        //  $('#svg').load('/images/cloud.svg');
     });
     var getTimeLeft = function() {
         var end = new Date('08/01/2015 12:00');
@@ -51,46 +49,54 @@ if(Meteor.isClient) {
         Snap.load("/images/cloud.svg", function(fragment) {
             
             var element = fragment.select(".cloud");
-          //  element.attr("class", "cloud");
             s.append(element);
-            element.drag();
            
-           
-
+            //set our sky values
             var containerHeight = s.node.offsetHeight,
                 numberOfClouds = 16;
-            cloudWidth = $(window).width();
-            
-            var clouds = s.g();
-            
+                containerWidth = $(window).width(),
+                    randomScale = getRandomScale();
+                              
+            //set up our cloud clones
+            var cloudGroup = s.g();
             for (i = numberOfClouds; i >= 0; i--) {
                 
                 //randomise our new cloud variables
-                var x = Math.floor(Math.random() * cloudWidth),
-                y = Math.floor(Math.random() * containerHeight),
-                newCloud = element.use(),
-                randomScale = Math.random() * (3 - 0.5) + 0.5;
+                var x = randomise(containerWidth),
+                    y = randomise(containerHeight),
+                    newCloud = element.use(),
+                    newCloudRandomScale = getRandomScale();
                 
+                //set our cloud size, position, and class
                 newCloud.attr({
                   x: x,
                   y: y,
-                  transform: 's' + randomScale
+                  transform: 's' + newCloudRandomScale
                 });
                 newCloud.attr("class", "cloud");
                 
-                float(newCloud, randomScale, x);
+                //set up the animation for this cloud
+                float(newCloud, 30000 * newCloudRandomScale, x);  
                 
-                
-                clouds.add(newCloud);
-            }
-                   
-            s.append(clouds);
+                cloudGroup.add(newCloud);
+            }  
+            s.append(cloudGroup);
+            $('#sky').find('.cloud').first().hide();
         });
         
-        function float(newCloud, randomScale, x){
-          newCloud.animate({x:-x}, 20000*randomScale, function(){
-                    newCloud.attr({x: $(document).width()}); 
-                    float(newCloud, randomScale, x);
+        function randomise(num){
+            return Math.floor(Math.random() * num);
+        }
+        
+        function getRandomScale(){
+            return Math.random() * (5 - 0.5) + 1;
+        }
+        
+        function float(cloud, time, xStart){
+          cloud.animate({x:-(xStart/4)}, time, function(){
+                    //when done, reset to the right side of the screen and start the animation again
+                    cloud.attr({x: $(window).width()}); 
+                    float(cloud, time, xStart);
             });
         };
       

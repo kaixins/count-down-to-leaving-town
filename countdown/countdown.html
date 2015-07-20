@@ -29,11 +29,13 @@
 </template>
 
 <template name="countdown">
+    <div class="countdown__intro">
+        Leaving for New Zealand in... 
+    </div>
     <div id="countdown">
-        <span class="countdown__number">{{getDays}}</span> days,
-        <span class="countdown__number">{{getHours}}</span> hours,
-        <span class="countdown__number">{{getMinutes}}</span> minutes and 
-        <span class="countdown__number">{{getSeconds}}</span> seconds
-        <span class="countdown__message">to go!</span>
+        <span class="countdown__line"><span class="countdown__number">{{getDays}}</span> days,</span>
+        <span class="countdown__line"><span class="countdown__number">{{getHours}}</span> hours,</span>
+        <span class="countdown__line"><span class="countdown__number">{{getMinutes}}</span> minutes and </span>
+        <span class="countdown__line"><span class="countdown__number">{{getSeconds}}</span> seconds! </span>
     </div>
 </template>

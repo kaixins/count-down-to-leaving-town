@@ -1,29 +1,19 @@
-@import url(https://fonts.googleapis.com/css?family=Quicksand:400,700);
 @import url(https://fonts.googleapis.com/css?family=Roboto+Slab:400,700);
 
-$quicksand: 'Quicksand', sans-serif;
 $roboto-slab: 'Roboto Slab', serif;
 
-$bright-blue: #77CFD0;
-$dusty-blue: #5690A2;;
+$dusty-blue: #5690A2;
 $olive-green: #788E3F;
-$light-grey: #F5F5F5;
 $dark-grey: #1A242F;
 $orange: #FF6633;
-$dusty-yellow: #E7B039;
 $pale-duck-egg: #E3F2F0;
-
 
 body {
     font-family: $roboto-slab;
     font-weight: normal;
     background: $pale-duck-egg;
-    color: $dark-grey;
-}
-
-h1 {
-    color: $orange;
-    font-size: 5em;
+    color: $olive-green;
+    line-height: normal;
 }
 
 #sky {
@@ -33,20 +23,38 @@ h1 {
     width: 100%;
     .cloud {
         fill: #FFF;
-        z-index: 0;
-        opacity: 0.7;
+        opacity: 0.8;
     }
 }
 
-
 .jumbotron {
-    padding: 20px;
-    z-index: 5;
+    padding: 20px 0;
+    background-color: $pale-duck-egg;
+    h1 {
+        color: $orange;
+        font-size: 5em;
+    }
 }
 
 .countdown {
-    &__number{
-        color: $dusty-blue;
+    &__intro{
         font-size: 2em;
     }
+    &__number{
+        color: $dusty-blue;
+        font-size: 3em;
+    }
 }
+
+@media(max-width:768px) {
+    .countdown {
+        &__line{
+            width: 70%;
+            margin: 0 auto;
+            display: block;
+        }
+    }
+}
+    
+    
+
